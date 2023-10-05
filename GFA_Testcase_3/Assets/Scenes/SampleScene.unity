@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57f4aaa09383a1459b0ef5d2abf81e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalSpeed: 20
-  _horizontalSpeed: 20
+  _verticalSpeed: 30
+  _horizontalSpeed: 30
   _clampAngle: 20
 --- !u!114 &7993396
 MonoBehaviour:
@@ -5787,6 +5787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cinemachinePovExtension: {fileID: 7993395}
+  _rollpower: 15
 --- !u!114 &2021636298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5799,7 +5800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be33e3d074b7864e9223f0552ccfc11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpSpeed: 10
+  _jumpForce: 5
+  _ySpeed: 5
   _movementSpeed: 7
 --- !u!143 &2021636299
 CharacterController:

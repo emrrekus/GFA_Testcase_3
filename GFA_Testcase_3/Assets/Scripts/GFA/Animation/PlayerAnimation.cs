@@ -12,6 +12,7 @@ namespace GFA.Animation
         private Vector3 _currentTranstionVelocity;
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Rolling = Animator.StringToHash("Rolling");
 
         private void Update()
         {
@@ -27,6 +28,11 @@ namespace GFA.Animation
         public void PlayJumpAnimation()
         {
             _animator.SetTrigger(Jumping);
+        }
+
+        public void PlayRollingAnimation()
+        {
+            _animator.SetTrigger(Rolling);
         }
     }
 }

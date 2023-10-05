@@ -20,6 +20,7 @@ namespace GFA.Mediator
 
 
         private Plane _plane = new(Vector3.up, Vector3.zero);
+        [SerializeField] private float _rollpower;
 
         private void Awake()
         {
@@ -31,12 +32,14 @@ namespace GFA.Mediator
 
         private void OnEnable()
         {
+            _gameInput.Player.Rolling.performed += OnPlayerRoll;
             _gameInput.Player.Jump.performed += OnPlayerJump;
             _gameInput.Enable();
         }
 
         private void OnDisable()
         {
+            _gameInput.Player.Rolling.performed -= OnPlayerRoll;
             _gameInput.Player.Jump.performed -= OnPlayerJump;
             _gameInput.Disable();
         }
@@ -53,9 +56,8 @@ namespace GFA.Mediator
         {
             var movementInput = _gameInput.Player.Movement.ReadValue<Vector2>();
             _characterMovement.MovementInput = movementInput;
-            float rotation = Mathf.Atan2(movementInput.x, movementInput.y) * Mathf.Rad2Deg;
+
             _characterMovement.CameraTransform = _camera.transform;
-            _characterMovement.Rotation = rotation;
         }
 
         private void HandleRotation()
@@ -66,9 +68,20 @@ namespace GFA.Mediator
 
         private void OnPlayerJump(InputAction.CallbackContext obj)
         {
-            if(!_characterMovement.IsGrounded) return;;
+            if (!_characterMovement.IsGrounded) return;
+            ;
             _characterMovement.IsJump = true;
             _playerAnimation.PlayJumpAnimation();
+        }
+
+        private void OnPlayerRoll(InputAction.CallbackContext obj)
+        {
+            if (!_characterMovement.IsGrounded) return;
+            
+            
+            _playerAnimation.PlayRollingAnimation();
+            _characterMovement.IsJump = false;
+            _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _rollpower;
         }
     }
 }
