@@ -2,24 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using GFA;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class IdleState : StateMachineBehaviour
 {
-    private float timer;
+    private NavMeshAgent _agent;
+    [SerializeField] private GameInstance _gameInstance;
     private EnemyController _enemyController;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
+        _agent = animator.GetComponentInParent<NavMeshAgent>();
         _enemyController = animator.GetComponentInParent<EnemyController>();
     }
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer += Time.deltaTime;
-        if (timer> 5)
+        
+        if (Vector3.Distance(_gameInstance.Player.transform.position, _agent.transform.position) < 25f)
         {
-            animator.SetBool("isPatrolling",true);
+            
+            _agent.SetDestination(_gameInstance.Player.transform.position);
+            animator.SetBool("isPatrolling", true);
+            if (_agent.remainingDistance <= _agent.stoppingDistance)
+            {
+                animator.SetBool("isPatrolling", false);
+                
+            }
         }
+     
         
         if(_enemyController.IsJump)
             animator.SetTrigger("isJump");

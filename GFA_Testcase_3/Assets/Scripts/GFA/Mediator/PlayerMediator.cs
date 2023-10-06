@@ -11,6 +11,8 @@ namespace GFA.Mediator
 {
     public class PlayerMediator : MonoBehaviour
     {
+        [SerializeField] private UIManager _uıManager;
+
         private GameInput _gameInput;
         private CharacterMovement _characterMovement;
         private PlayerAnimation _playerAnimation;
@@ -82,6 +84,19 @@ namespace GFA.Mediator
             _playerAnimation.PlayRollingAnimation();
             _characterMovement.IsJump = false;
             _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _rollpower;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                _uıManager.LoseCanvas();
+            }
+
+            if (other.gameObject.CompareTag("Finish"))
+            {
+                _uıManager.WinCanvas();
+            }
         }
     }
 }

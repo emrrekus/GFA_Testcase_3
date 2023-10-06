@@ -22,7 +22,7 @@ public class PatrollState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Vector3.Distance(_gameInstance.Player.transform.position, _agent.transform.position) < 15f)
+        if (Vector3.Distance(_gameInstance.Player.transform.position, _agent.transform.position) < 25f)
         {
             
             _agent.SetDestination(_gameInstance.Player.transform.position);
