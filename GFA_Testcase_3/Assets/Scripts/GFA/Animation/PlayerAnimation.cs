@@ -13,6 +13,7 @@ namespace GFA.Animation
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int Rolling = Animator.StringToHash("Rolling");
+        private static readonly int Crawling = Animator.StringToHash("Crawling");
 
         private void Update()
         {
@@ -33,6 +34,11 @@ namespace GFA.Animation
         public void PlayRollingAnimation()
         {
             _animator.SetTrigger(Rolling);
+        }
+
+        public void PlayCrawlingAnimation(bool state)
+        {
+            _animator.SetBool(Crawling,state);
         }
     }
 }

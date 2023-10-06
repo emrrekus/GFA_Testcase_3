@@ -77,8 +77,8 @@ namespace GFA.Mediator
         private void OnPlayerRoll(InputAction.CallbackContext obj)
         {
             if (!_characterMovement.IsGrounded) return;
-            
-            
+
+
             _playerAnimation.PlayRollingAnimation();
             _characterMovement.IsJump = false;
             _characterMovement.ExternalForce += _characterMovement.Velocity.normalized * _rollpower;

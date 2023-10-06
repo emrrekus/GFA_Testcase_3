@@ -10,7 +10,7 @@ namespace GFA.Movement
 
         [SerializeField] private float _jumpForce;
         [SerializeField] private float _ySpeed;
-        private float _gravity = -9.81f;
+     
        
         public Vector2 MovementInput { get; set; }
      
@@ -48,6 +48,7 @@ namespace GFA.Movement
 
         private void Start()
         {
+            _ySpeed = 0;
             _isJump = false;
         }
 

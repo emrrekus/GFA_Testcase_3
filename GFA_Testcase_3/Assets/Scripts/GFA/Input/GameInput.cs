@@ -91,6 +91,15 @@ namespace GFA.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crawling"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c900490-42e2-4382-9640-208e02f20723"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +300,17 @@ namespace GFA.Input
                     ""action"": ""Rolling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37984cf5-9a0a-4f41-871b-c8c3beb38a5d"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crawling"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -334,6 +354,7 @@ namespace GFA.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_CLook = m_Player.FindAction("CLook", throwIfNotFound: true);
             m_Player_Rolling = m_Player.FindAction("Rolling", throwIfNotFound: true);
+            m_Player_Crawling = m_Player.FindAction("Crawling", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -402,6 +423,7 @@ namespace GFA.Input
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_CLook;
         private readonly InputAction m_Player_Rolling;
+        private readonly InputAction m_Player_Crawling;
         public struct PlayerActions
         {
             private @GameInput m_Wrapper;
@@ -413,6 +435,7 @@ namespace GFA.Input
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @CLook => m_Wrapper.m_Player_CLook;
             public InputAction @Rolling => m_Wrapper.m_Player_Rolling;
+            public InputAction @Crawling => m_Wrapper.m_Player_Crawling;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -443,6 +466,9 @@ namespace GFA.Input
                 @Rolling.started += instance.OnRolling;
                 @Rolling.performed += instance.OnRolling;
                 @Rolling.canceled += instance.OnRolling;
+                @Crawling.started += instance.OnCrawling;
+                @Crawling.performed += instance.OnCrawling;
+                @Crawling.canceled += instance.OnCrawling;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -468,6 +494,9 @@ namespace GFA.Input
                 @Rolling.started -= instance.OnRolling;
                 @Rolling.performed -= instance.OnRolling;
                 @Rolling.canceled -= instance.OnRolling;
+                @Crawling.started -= instance.OnCrawling;
+                @Crawling.performed -= instance.OnCrawling;
+                @Crawling.canceled -= instance.OnCrawling;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -512,6 +541,7 @@ namespace GFA.Input
             void OnJump(InputAction.CallbackContext context);
             void OnCLook(InputAction.CallbackContext context);
             void OnRolling(InputAction.CallbackContext context);
+            void OnCrawling(InputAction.CallbackContext context);
         }
     }
 }
